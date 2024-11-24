@@ -11,6 +11,7 @@ RUN set -ex; \
         libpcre3-dev \
         libssl-dev \
         zlib1g-dev \
+
     "; \
     if [ -n "$APT_PROXY" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/00proxy; fi; \
     if [ -n "$APT_PROXY_SSL" ]; then echo "Acquire::https { Proxy \"https://${APT_PROXY_SSL}\"; };" > /etc/apt/apt.conf.d/00proxy; fi; \
@@ -18,6 +19,7 @@ RUN set -ex; \
     apt-get --yes install \
         $buildDependencies \
         ffmpeg \
+        nano \
     ; \
     cd /tmp; \
     curl -L "https://nginx.org/download/nginx-$NGINX_VERSION.tar.gz" -o nginx-$NGINX_VERSION.tar.gz; \
@@ -47,7 +49,7 @@ RUN set -ex; \
 COPY assets/ /
 
 VOLUME [ "/var/lib/streaming" ]
-EXPOSE 1935 8080 8443
+EXPOSE 1935 8080 8443 22312
 CMD [ "nginx", "-g", "daemon off;" ]
 
 ### METADATA ###################################################################
