@@ -34,6 +34,7 @@ start:
 		--publish 1935:1935 \
 		--publish 8080:8080 \
 		--publish 8443:8443 \
+                --publish 22312:22312 \
 		$(IMAGE)
 
 stop:
